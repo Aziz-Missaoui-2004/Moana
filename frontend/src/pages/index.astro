@@ -1,0 +1,61 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Moana — La culture arabe en partage">
+  <header class="hero" id="top">
+    <div class="in">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <h1>Moana, <span class="ar" lang="ar" dir="rtl" translate="no">مُعاوَنة</span><br>la culture arabe en partage</h1>
+          <p class="lede">À l’Université Grenoble Alpes, notre association étudiante fait découvrir les arts, le cinéma et les traditions arabes lors de rencontres ouvertes à toutes et tous.</p>
+          <a class="hero-link" href="/asso">Découvrir l’asso</a>
+        </div>
+        <img class="logo-big" src="/moana-logo.webp" alt="Logo de Moana : le mot arabe مُعاوَنة entouré d'un rameau d'olivier et de vagues">
+      </div>
+    </div>
+  </header>
+  <svg class="wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true" style="background:var(--bg)">
+    <path d="M0 0 H1200 V18 C1000 48 800 4 600 22 C400 40 200 6 0 26 Z" fill="var(--green)" style="fill:var(--green);stroke:none"/>
+    <path d="M0 36 C200 16 400 50 600 32 C800 14 1000 54 1200 30" stroke="var(--olive)" stroke-width="1.5" opacity=".6"/>
+  </svg>
+
+  <main id="contenu" tabindex="-1">
+    <section id="adherer">
+      <div class="in join">
+        <div class="head">
+          <p class="label">Rejoindre l'asso</p>
+          <h2>Deviens membre de Moana</h2>
+          <p>L'adhésion soutient nos événements et te permet de prendre part à la vie de l'asso. Elle se fait en ligne en quelques minutes.</p>
+        </div>
+        <ul class="perks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7"/></svg><span>Tu aides à financer les ateliers, les projections et les sorties.</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7"/></svg><span>Tu peux proposer tes idées et participer à l'organisation.</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7"/></svg><span>Tu rejoins une communauté d'étudiants curieux et bienveillants.</span></li>
+        </ul>
+        <a class="btn btn-paper membership-action" href="https://www.helloasso.com/associations/moana" target="_blank" rel="noopener">Adhérer sur HelloAsso</a>
+      </div>
+    </section>
+
+    <section id="suivre">
+      <div class="in follow">
+        <div class="head" style="margin:0">
+          <p class="label">Suivre l'actu</p>
+          <h2>Toutes nos annonces sont sur Instagram</h2>
+        </div>
+        <a class="handle link-olive-hover" href="https://www.instagram.com/moana_uga/" target="_blank" rel="noopener">@moana_uga →</a>
+      </div>
+    </section>
+  </main>
+</SiteLayout>
+
+<style>
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    min-block-size: 44px;
+    font-weight: 600;
+    text-underline-offset: .25em;
+  }
+</style>

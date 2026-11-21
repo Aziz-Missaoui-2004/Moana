@@ -1,0 +1,72 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteNavigation from "../components/SiteNavigation.astro";
+import "../styles/site.css";
+
+interface Props {
+  title: string;
+  footerWaveFrom?: "background" | "surface" | false;
+}
+
+const { title, footerWaveFrom } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Amiri:wght@400;700&family=Figtree:wght@400;500;600&display=swap">
+  </head>
+  <body>
+    <a class="btn skip-link" href="#contenu">Aller au contenu</a>
+    <SiteNavigation />
+    <slot />
+    <SiteFooter waveFrom={footerWaveFrom} />
+  </body>
+</html>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".circle-reveal").forEach((button) => {
+    let origin: { x: number; y: number } | undefined;
+
+    const updateRadius = () => {
+      if (!origin) return;
+      const { x, y } = origin;
+      const radius = Math.hypot(
+        Math.max(Math.abs(x), Math.abs(button.clientWidth - x)),
+        Math.max(Math.abs(y), Math.abs(button.clientHeight - y)),
+      );
+      button.style.setProperty("--reveal-radius", `${radius}px`);
+    };
+
+    if (button instanceof HTMLDetailsElement && typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(updateRadius).observe(button);
+    }
+
+    button.addEventListener("pointerenter", (event) => {
+      if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
+
+      const bounds = button.getBoundingClientRect();
+      const entryX = event.clientX - bounds.left - button.clientLeft;
+      const entryY = event.clientY - bounds.top - button.clientTop;
+      const edges = [
+        { distance: entryX, dx: -1, dy: 0 },
+        { distance: button.clientWidth - entryX, dx: 1, dy: 0 },
+        { distance: entryY, dx: 0, dy: -1 },
+        { distance: button.clientHeight - entryY, dx: 0, dy: 1 },
+      ];
+      const edge = edges.reduce((nearest, candidate) =>
+        candidate.distance < nearest.distance ? candidate : nearest,
+      );
+      const offset = 200;
+      const x = entryX + edge.dx * offset;
+      const y = entryY + edge.dy * offset;
+      origin = { x, y };
+      button.style.setProperty("--reveal-origin", `${x}px ${y}px`);
+      updateRadius();
+    });
+  });
+</script>

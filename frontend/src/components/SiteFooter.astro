@@ -1,0 +1,273 @@
+---
+interface Props {
+  waveFrom?: "background" | "surface" | false;
+}
+
+const { waveFrom = "background" } = Astro.props;
+const year = new Date().getUTCFullYear();
+---
+
+{waveFrom !== false && (
+  <svg class:list={["wave", "footer-wave", { "from-surface": waveFrom === "surface" }]} viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 56 H1200 V30 C1000 6 800 50 600 30 C400 10 200 46 0 22 Z"/>
+  </svg>
+)}
+<footer class="site-footer">
+  <div class="in footer-content">
+    <div class="footer-information">
+      <div class="footer-identity">
+        <a class="brand footer-brand" href="/" aria-label="MOANA · Retour à l’accueil">
+          <img src="/moana-logo.webp" alt="" width="44" height="44" loading="lazy">
+          <bdi class="ar" lang="ar" dir="rtl" translate="no">مُعاوَنة</bdi>
+        </a>
+        <p>Association étudiante de culture arabe à l’Université Grenoble Alpes.</p>
+      </div>
+      <div class="footer-directory">
+        <a class="footer-resource link-underline link-underline-from-left" href="https://www.helloasso.com/associations/moana/formulaires/1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 20 4.5 13a4.5 4.5 0 0 1 6.4-6.4L12 7.7l1.1-1.1a4.5 4.5 0 0 1 6.4 6.4Z"/>
+          </svg>
+          Faire un don
+        </a>
+        <a class="footer-resource link-underline link-underline-from-left" href="https://www.instagram.com/moana_uga/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m17 15 2-2 3-1-2-6-4 1-2-1a3 3 0 0 0-3 .5L7.5 10a1.5 1.5 0 0 0 2.1 2.1l2.4-2.2 5.5 5.6a1.5 1.5 0 0 1-2.1 2.1l-1.2-1.2m1.2 1.2a1.5 1.5 0 0 1-2.1 2.1l-1.4-1.4m1.4 1.4a1.5 1.5 0 0 1-2.1 2.1L5 15l-3-2 2-7 4 2 2-1"/>
+          </svg>
+          Proposer un partenariat
+        </a>
+        <a class="footer-resource link-underline link-underline-from-left" href="/contact/#faq">FAQ</a>
+        <span class="copyright">© {year} MOANA</span>
+      </div>
+    </div>
+    <div class="footer-actions">
+      <a class="btn footer-pill circle-reveal" href="https://www.instagram.com/moana_uga/">
+        {[false, true].map((isFill) => (
+          <span class:list={["footer-pill-content", { "footer-pill-fill circle-reveal-fill": isFill }]} aria-hidden={isFill ? "true" : undefined} hidden={isFill}>
+            <span class="footer-pill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            Rejoignez-nous !
+          </span>
+        ))}
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="in footer-bottom-content">
+      <p>Site développé par Aziz Missaoui</p>
+      <nav class="developer-links" aria-label="Profils d’Aziz Missaoui">
+        <a class="link-olive-hover" href="https://fr.linkedin.com/in/aziz-missaoui" aria-label="LinkedIn d’Aziz Missaoui">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5V9h3Zm-1.5-11.4A1.7 1.7 0 1 1 6.5 4.2a1.7 1.7 0 0 1 0 3.4ZM19 19h-3v-5.1c0-1.3-.45-2.1-1.55-2.1-1.15 0-1.75.8-1.75 2.1V19h-3V9h2.9v1.35A3.3 3.3 0 0 1 15.5 8.8c2.15 0 3.5 1.4 3.5 4.1Z"/>
+          </svg>
+        </a>
+        <a class="link-olive-hover" href="https://github.com/Aziz-Missaoui-2004" aria-label="GitHub d’Aziz Missaoui">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.8-1.33-3.8-1.33-.5-1.3-1.23-1.65-1.23-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.62 1.22 3.27.93.1-.73.39-1.23.71-1.51-2.5-.29-5.12-1.25-5.12-5.56 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.99 0 0 .95-.3 3.1 1.15a10.8 10.8 0 0 1 5.64 0c2.15-1.45 3.1-1.15 3.1-1.15.61 1.56.23 2.7.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.32-2.63 5.27-5.14 5.55.4.35.77 1.04.77 2.09 0 1.51-.01 2.73-.01 3.1 0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-wave {
+    background: var(--bg);
+  }
+
+  .footer-wave.from-surface {
+    background: var(--surface);
+  }
+
+  .footer-wave path {
+    fill: var(--green);
+  }
+
+  .site-footer {
+    background: var(--green);
+    color: var(--on-green);
+  }
+
+  .footer-content {
+    --footer-divider: color-mix(in srgb, var(--on-green) 45%, transparent);
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    min-block-size: 20rem;
+    padding-block: clamp(1.5rem, 3vw, 2.5rem) 2.75rem;
+  }
+
+  .footer-information, .footer-actions {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+  }
+
+  .footer-information {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: start;
+    justify-items: start;
+    gap: 1.5rem clamp(1rem, 3vw, 2.5rem);
+    padding-inline-end: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .footer-identity {
+    display: grid;
+    place-self: center;
+    justify-items: center;
+    text-align: center;
+    gap: .75rem;
+    max-inline-size: 24ch;
+    overflow-wrap: anywhere;
+  }
+
+  .footer-brand img {
+    inline-size: 44px;
+    block-size: 44px;
+  }
+
+  .footer-directory {
+    display: grid;
+    gap: .25rem;
+    justify-items: start;
+  }
+
+  .copyright {
+    margin-block-start: .25rem;
+  }
+
+  .footer-resource {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    min-block-size: 44px;
+    overflow-wrap: anywhere;
+  }
+
+  .footer-resource svg {
+    flex: none;
+    inline-size: 20px;
+    block-size: 20px;
+  }
+
+  .footer-resource::after {
+    inset-block-start: auto;
+    inset-block-end: .25rem;
+  }
+
+  .footer-actions {
+    padding-inline: 3rem 2rem;
+    border-inline-start: 1px solid var(--footer-divider);
+  }
+
+  .footer-pill {
+    padding: 0;
+    min-block-size: 44px;
+    border: 1px solid var(--on-green);
+    background: transparent;
+    color: var(--on-green);
+    text-align: center;
+  }
+
+  .footer-pill-content {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding-inline-end: 1.65rem;
+  }
+
+  .footer-pill-fill {
+    color: var(--green);
+    background: var(--on-green);
+  }
+
+  .footer-pill-fill .footer-pill-icon {
+    background: transparent;
+    color: inherit;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer-pill:hover {
+      transform: none;
+    }
+  }
+
+  .footer-pill-icon {
+    display: grid;
+    place-items: center;
+    align-self: stretch;
+    flex: none;
+    inline-size: 3rem;
+    min-block-size: 3rem;
+    border-radius: 999px;
+    background: var(--green);
+    color: var(--on-green);
+  }
+
+  .footer-pill svg {
+    flex: none;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+  }
+
+  .site-footer a:focus-visible {
+    outline-color: var(--on-green);
+  }
+
+  .footer-bottom {
+    background: color-mix(in srgb, var(--green) 85%, black);
+    font-family: var(--f-body);
+  }
+
+  .footer-bottom-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .5rem 1rem;
+    padding-block: 1rem;
+    font-size: 1.1875rem;
+  }
+
+  .developer-links {
+    display: flex;
+    gap: 10px;
+  }
+
+  .developer-links a {
+    display: grid;
+    place-items: center;
+    inline-size: 44px;
+    block-size: 44px;
+    border-radius: 50%;
+  }
+
+  .developer-links svg {
+    inline-size: 24px;
+    block-size: 24px;
+  }
+
+  @media (width <= 860px) {
+    .footer-content {
+      grid-template-columns: minmax(0, 1fr);
+      min-block-size: 0;
+      padding-block: 1rem 0;
+    }
+
+    .footer-information {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(.75rem, 4vw, 1.5rem);
+      padding-inline-end: 0;
+    }
+
+    .footer-actions {
+      padding-inline: 0;
+      padding-block: 2.75rem;
+      border-inline-start: 0;
+    }
+  }
+</style>

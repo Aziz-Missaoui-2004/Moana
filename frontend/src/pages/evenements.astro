@@ -1,0 +1,54 @@
+---
+import UpcomingEvent from "../components/UpcomingEvent.astro";
+import { demoEvent } from "../data/demo-event";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Événements — Moana" footerWaveFrom={false}>
+  <header class="hero" id="top">
+    <div class="in">
+      <h1>Événements</h1>
+    </div>
+  </header>
+  <main id="contenu" tabindex="-1">
+    <UpcomingEvent event={demoEvent} archivesUrl="#archives" />
+    <svg class="wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 56 H1200 V30 C1000 6 800 50 600 30 C400 10 200 46 0 22 Z" style="fill:var(--green);stroke:none"/>
+    </svg>
+    <section class="events-band" id="archives">
+      <div class="in">
+        <div class="head">
+          <h2>Événements passés</h2>
+          <p>Quelques rendez-vous que Moana a déjà proposés. Ils sont gratuits et ouverts à tous.</p>
+        </div>
+        <div class="events">
+          <article class="event">
+            <span class="tag">Atelier</span>
+            <h3>Stand henné</h3>
+            <p>Découvrir l'art du henné, ses motifs et ses traditions, et repartir avec un dessin sur la main entre deux cours.</p>
+            <p class="where">Bâtiment Stendhal Nord, Saint-Martin-d'Hères</p>
+          </article>
+          <article class="event">
+            <span class="tag">Cinéma</span>
+            <h3>Exposition cinématographique</h3>
+            <p>Une sélection de films et d'images pour explorer le cinéma du monde arabe et en discuter ensemble.</p>
+            <p class="where">Salle des actes, bâtiment Stendhal</p>
+          </article>
+          <article class="event">
+            <span class="tag">Sortie</span>
+            <h3>Pique-nique</h3>
+            <p>Un moment au vert pour partager des plats, faire connaissance et profiter du beau temps.</p>
+            <p class="where">Parc de Fiancey, Saint-Égrève</p>
+          </article>
+        </div>
+        <div class="idea">
+          <p>Les prochaines dates sont annoncées sur Instagram. Tu as une idée d'événement ? Écris-nous, on est toujours partants.</p>
+          <a class="btn btn-beige" href="https://www.instagram.com/moana_uga/" target="_blank" rel="noopener">Voir les annonces</a>
+        </div>
+      </div>
+    </section>
+    <svg class="wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 H1200 V26 C1000 50 800 6 600 26 C400 46 200 8 0 32 Z" style="fill:var(--green);stroke:none"/>
+    </svg>
+  </main>
+</SiteLayout>

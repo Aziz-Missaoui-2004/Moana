@@ -1,0 +1,107 @@
+---
+interface Props {
+  archivesUrl?: string;
+  event?: {
+    title: string;
+    startsAt: string;
+    schedule: string;
+    venue: string;
+    summary: string;
+    participationUrl: string;
+    demo?: boolean;
+  };
+}
+
+const { event, archivesUrl = "/evenements/#archives" } = Astro.props;
+---
+
+<section class="upcoming" id="prochain-evenement" aria-labelledby="upcoming-title">
+  <div class="in">
+    <div class="feature">
+      <div class="introduction">
+        <h2 id="upcoming-title">Prochain événement</h2>
+        {event ? (
+          <>
+            {event.demo && <p class="demo">Événement de démonstration</p>}
+            <h3>{event.title}</h3>
+            <p>{event.summary}</p>
+          </>
+        ) : <p>Aucune nouvelle date n’est annoncée pour le moment.</p>}
+      </div>
+      {event ? (
+        <div class="action">
+          <p><time datetime={event.startsAt}>{event.schedule}</time><br>{event.venue}</p>
+          <a class="btn btn-beige" href={event.participationUrl}>Participer</a>
+          {event.demo && <p class="demo" id="participation-demo" tabindex="-1">Ce bouton illustre le parcours. Les inscriptions ne sont pas ouvertes pour cet exemple.</p>}
+        </div>
+      ) : (
+        <div class="action">
+          <a class="btn btn-beige" href={archivesUrl}>Découvrir les événements passés</a>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .upcoming {
+    background: var(--surface);
+  }
+
+  .upcoming .in {
+    padding-block: 2rem;
+  }
+
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 2rem;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    border-radius: 14px;
+    background: var(--green-2);
+    color: var(--on-green);
+    overflow-wrap: anywhere;
+  }
+
+  .introduction, .action {
+    display: grid;
+    gap: .75rem;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 4.2vw, 2.7rem);
+  }
+
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  .demo {
+    font-size: .9rem;
+  }
+
+  .action {
+    justify-items: start;
+  }
+
+  .action .btn {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .action .btn:active {
+    background: color-mix(in srgb, var(--beige) 82%, var(--olive));
+  }
+
+  @media (max-width: 560px) {
+    .feature {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .action .btn {
+      width: 100%;
+    }
+  }
+</style>

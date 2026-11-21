@@ -1,0 +1,18 @@
+---
+import AssociationIdentity from "../components/AssociationIdentity.astro";
+import AssociationMission from "../components/AssociationMission.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="L’asso — Moana" footerWaveFrom="surface">
+  <header class="hero" id="top">
+    <div class="in">
+      <h1>L’asso</h1>
+    </div>
+  </header>
+
+  <main id="contenu" tabindex="-1">
+    <AssociationMission />
+    <AssociationIdentity />
+  </main>
+</SiteLayout>

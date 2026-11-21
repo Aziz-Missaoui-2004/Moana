@@ -1,0 +1,734 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const showFormPreview = import.meta.env.DEV;
+const messageLimit = 2000;
+
+const questions = [
+  { question: "Faut-il parler arabe pour venir ?", answer: "Non. Nos événements sont en français et ouverts à tous. Si tu veux découvrir quelques mots, tu seras bien accueilli." },
+  { question: "Faut-il être adhérent pour participer aux événements ?", answer: "Nos événements sont gratuits. L'adhésion est un moyen de soutenir l'asso et de t'impliquer davantage." },
+  { question: "Où ont lieu les événements ?", answer: "Surtout sur le campus de Saint-Martin-d'Hères, notamment au bâtiment Stendhal, et parfois à l'extérieur pour des sorties." },
+  { question: "Comment être au courant des prochaines dates ?", answer: "Suis notre compte Instagram @moana_uga : on y annonce tous nos événements." },
+  { question: "Je veux m'investir dans l'organisation, comment faire ?", answer: "Envoie-nous un message sur Instagram. On cherche toujours des personnes motivées pour proposer et monter des projets." },
+];
+---
+
+<SiteLayout title="Contact — Moana">
+  <header class="hero contact-header" id="top">
+    <div class="in">
+      <h1>Contacter MOANA</h1>
+    </div>
+  </header>
+
+  <main id="contenu" tabindex="-1">
+    <section class="contact" aria-label="Moyens de contact">
+      <div class="in">
+        <div class:list={["contact-options", { "has-preview": showFormPreview }]}>
+          <div class="contact-channels">
+            <h2>Nous trouver</h2>
+            <address class="contact-address">
+              <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M20 10c0 6-8 11-8 11s-8-5-8-11a8 8 0 1 1 16 0Z"/>
+                <circle cx="12" cy="10" r="2.5"/>
+              </svg>
+              <span><strong>Adresse postale</strong><br>7 rue Émile Combes<br>38400 Saint-Martin-d’Hères</span>
+            </address>
+            {showFormPreview && (
+              <p class="pending-contact">
+                <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7">
+                  <rect x="3" y="5" width="18" height="14" rx="2"/>
+                  <path d="m4 7 8 6 8-6"/>
+                </svg>
+                Adresse e-mail à confirmer
+              </p>
+            )}
+            <ul class="contact-links" aria-label="MOANA en ligne">
+              <li>
+                <a href="https://www.instagram.com/moana_uga/">
+                  <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7">
+                    <rect x="3" y="3" width="18" height="18" rx="5"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/>
+                  </svg>
+                  Instagram
+                </a>
+              </li>
+              {showFormPreview && (
+                <li class="pending-contact" title="Compte TikTok à confirmer">
+                  <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 3v13a4.5 4.5 0 1 1-4.5-4.5M14 3c1 4 3 5 6 5"/>
+                  </svg>
+                  TikTok à confirmer
+                </li>
+              )}
+              <li>
+                <a href="https://www.helloasso.com/associations/moana">
+                  <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round">
+                    <path d="M12 20 4.5 13a4.5 4.5 0 0 1 6.4-6.4L12 7.7l1.1-1.1a4.5 4.5 0 0 1 6.4 6.4Z"/>
+                  </svg>
+                  HelloAsso
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {showFormPreview && (
+            <form class="contact-preview" aria-labelledby="form-title" aria-describedby="form-status">
+              <h2 id="form-title">Formulaire de contact</h2>
+              <p id="form-status">Formulaire de démonstration. Aucun message ne sera transmis.</p>
+              <div class="short-fields">
+                <div class="field floating-field">
+                  <input id="contact-first-name" type="text" autocomplete="off" placeholder=" ">
+                  <label for="contact-first-name">Prénom (facultatif)</label>
+                </div>
+                <div class="field floating-field">
+                  <input id="contact-email" type="email" autocomplete="off" placeholder=" " required>
+                  <label for="contact-email">Adresse e-mail</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="message-heading">
+                  <label for="contact-message">Message</label>
+                  <span id="message-count">{messageLimit.toLocaleString("fr-FR")} caractères restants</span>
+                </div>
+                <div class="message-body">
+                  <textarea id="contact-message" placeholder=" " maxlength={messageLimit} aria-describedby="message-count" required></textarea>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-paper" disabled>Envoyer le message</button>
+                <label class="organization">
+                  <input type="checkbox">
+                  <span>Je représente un organisme</span>
+                </label>
+              </div>
+              <p class="submission-result" role="status"></p>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <svg class="wave contact-faq-wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
+      <path class="wave-fill" d="M0 0 H1200 V26 C1000 50 800 6 600 26 C400 46 200 8 0 32 Z"/>
+      <path class="wave-seam" d="M1200 26 C1000 50 800 6 600 26 C400 46 200 8 0 32" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <section class="faq" id="faq">
+      <div class="in">
+        <div class="head">
+          <p class="label">Questions fréquentes</p>
+          <h2>Tu te demandes si c'est pour toi ?</h2>
+        </div>
+        <div class="qa">
+          {questions.map(({ question, answer }, index) => (
+            <details class="faq-card circle-reveal" open={index === 0}>
+              <summary class="faq-question">
+                <span class="faq-question-content">{question}</span>
+                <span class="faq-card-fill circle-reveal-fill" aria-hidden="true" hidden>
+                  <span class="faq-question-content">{question}</span>
+                  <span class="faq-answer-copy">{answer}</span>
+                </span>
+              </summary>
+              <div class="faq-answer"><p>{answer}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</SiteLayout>
+
+<script>
+  const preview = document.querySelector<HTMLFormElement>(".contact-preview");
+  const submit = preview?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const result = preview?.querySelector<HTMLElement>(".submission-result");
+
+  const message = preview?.querySelector<HTMLTextAreaElement>("#contact-message");
+  const counter = preview?.querySelector<HTMLElement>("#message-count");
+
+  if (message && counter) {
+    const updateCount = () => {
+      const remaining = message.maxLength - message.value.length;
+      const label = remaining <= 1 ? "caractère restant" : "caractères restants";
+      counter.textContent = `${remaining.toLocaleString("fr-FR")} ${label}`;
+    };
+
+    message.addEventListener("input", updateCount);
+    updateCount();
+  }
+
+  if (preview && submit && result) {
+    preview.addEventListener("submit", (event) => {
+      event.preventDefault();
+      result.textContent = "Envoi simulé. Aucun message n’a été transmis.";
+    });
+    submit.disabled = false;
+  }
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  document.querySelectorAll<HTMLDetailsElement>(".faq details").forEach((item) => {
+    const summary = item.querySelector("summary");
+    const answer = item.querySelector<HTMLElement>(".faq-answer");
+    const answerCopy = item.querySelector<HTMLElement>(".faq-answer-copy");
+    if (!summary || !answer || !answerCopy || typeof answer.animate !== "function") return;
+
+    let animation: Animation | undefined;
+    let copyAnimation: Animation | undefined;
+    let opening = item.open;
+
+    summary.addEventListener("click", (event) => {
+      if (reducedMotion.matches) return;
+      event.preventDefault();
+
+      const height = item.open ? answer.getBoundingClientRect().height : 0;
+      const opacity = item.open ? getComputedStyle(answer).opacity : "0";
+      const answerColor = item.open ? getComputedStyle(answer).color : "var(--faq-answer-resting)";
+      const copyColor = item.open ? getComputedStyle(answerCopy).color : "var(--green-2)";
+      opening = animation ? !opening : !item.open;
+      item.toggleAttribute("data-closing", !opening);
+      animation?.cancel();
+      copyAnimation?.cancel();
+      if (opening) item.open = true;
+
+      const endOpacity = opening ? 1 : 0;
+      const timing = { duration: 280, easing: "ease", fill: "both" } as const;
+      animation = answer.animate([
+        { height: `${height}px`, opacity, color: answerColor },
+        {
+          height: opening ? `${answer.scrollHeight}px` : "0px",
+          opacity: endOpacity,
+          color: opening ? "var(--faq-answer-open)" : "var(--faq-answer-resting)",
+        },
+      ], timing);
+      copyAnimation = answerCopy.animate([
+        { opacity, color: copyColor },
+        { opacity: endOpacity, color: "var(--faq-copy-color)" },
+      ], timing);
+
+      animation.onfinish = () => {
+        item.open = opening;
+        item.removeAttribute("data-closing");
+        animation?.cancel();
+        copyAnimation?.cancel();
+        animation = undefined;
+        copyAnimation = undefined;
+      };
+    });
+
+    reducedMotion.addEventListener("change", () => {
+      if (reducedMotion.matches) animation?.finish();
+    });
+  });
+</script>
+
+<style>
+  .contact-header, .contact {
+    color-scheme: light;
+    background: var(--beige-strong);
+    color: #1c241f;
+  }
+
+  .contact-header h1 {
+    text-align: center;
+  }
+
+  .contact-header .in {
+    padding-block-end: 1.5rem;
+  }
+
+  .contact {
+    --contact-border: #d6c9ab;
+  }
+
+  .contact .in {
+    padding-block: 1.5rem 2rem;
+  }
+
+  .contact-faq-wave, .faq {
+    background: var(--bg);
+  }
+
+  .wave-fill {
+    fill: var(--beige-strong);
+  }
+
+  .wave-seam {
+    stroke: #c9ad7e;
+    stroke-width: 3px;
+  }
+
+  .faq .in {
+    padding-block-start: 2rem;
+  }
+
+  .faq .head, .faq .qa {
+    margin-inline: auto;
+  }
+
+  .faq .head {
+    text-align: center;
+  }
+
+  .faq-card {
+    --faq-answer-resting: var(--green-2);
+    --faq-answer-open: var(--green);
+    padding: 0;
+  }
+
+  .faq-question {
+    display: block;
+    border-radius: inherit;
+  }
+
+  .faq-question:focus-visible {
+    outline-color: var(--green);
+    outline-offset: -3px;
+  }
+
+  .faq-question::after {
+    content: none;
+  }
+
+  .faq-question-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .faq-question-content::after {
+    content: "+";
+    font-family: var(--f-display);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--olive);
+  }
+
+  details[open] .faq-question-content::after {
+    content: "−";
+  }
+
+  .faq-card-fill {
+    display: block;
+    background: var(--on-green);
+    color: var(--green);
+  }
+
+  .faq-card-fill .faq-question-content::after {
+    color: inherit;
+  }
+
+  .faq-question:focus-visible .faq-card-fill {
+    box-shadow: inset 0 0 0 2px var(--green);
+    border-radius: inherit;
+  }
+
+  .faq-answer {
+    display: flow-root;
+    overflow: clip;
+  }
+
+  .faq-answer p, .faq-answer-copy {
+    margin: 0;
+    padding: 0 1.25rem 1rem;
+    font-weight: 400;
+  }
+
+  .faq-answer {
+    color: var(--faq-answer-open);
+  }
+
+  .faq-answer p {
+    color: inherit;
+  }
+
+  .faq-answer-copy {
+    --faq-copy-color: var(--green-2);
+    color: var(--faq-copy-color);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .faq-card {
+      --faq-answer-resting: var(--muted);
+      --faq-answer-open: var(--ink);
+    }
+  }
+
+  .faq-card:not([data-closing]):has(> summary:focus-visible) .faq-answer-copy {
+    --faq-copy-color: var(--green);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .faq-card:not([data-closing]):hover .faq-answer-copy {
+      --faq-copy-color: var(--green);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-answer-copy {
+      transition: color .28s ease;
+    }
+  }
+
+  .faq-answer-copy {
+    display: none;
+  }
+
+  details[open] .faq-answer-copy {
+    display: block;
+  }
+
+  .contact-options {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .contact-channels, .contact-preview {
+    border: 1px solid var(--contact-border);
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgb(28 36 31 / 9%);
+  }
+
+  .contact-channels {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: 1.25rem;
+    padding: clamp(1.5rem, 4vw, 2rem);
+    border-color: #2a4d39;
+    background: #1e3a2b;
+    color: var(--beige);
+  }
+
+  .contact-icon {
+    flex: none;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  .contact-address, .pending-contact {
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+  }
+
+  .contact-address {
+    align-items: start;
+    font-style: normal;
+  }
+
+  .contact-address .contact-icon {
+    margin-block-start: .2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    gap: .5rem 1rem;
+    inline-size: 100%;
+    margin: 0;
+    padding: .75rem 0 0;
+    list-style: none;
+    text-align: center;
+  }
+
+  .contact-links a, .contact-links .pending-contact {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .25rem;
+  }
+
+  .contact-links a {
+    min-block-size: 44px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .pending-contact {
+    align-items: center;
+    color: color-mix(in srgb, var(--beige) 80%, transparent);
+    font-size: .9rem;
+  }
+
+  @media (width <= 860px) {
+    .has-preview {
+      gap: 0;
+    }
+
+    .has-preview .contact-channels {
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
+    }
+
+    .contact-preview {
+      border-start-start-radius: 0;
+      border-start-end-radius: 0;
+    }
+  }
+
+  .contact-preview {
+    --field-border: #1e3a2b;
+    --field-radius: 15px;
+    container-type: inline-size;
+    display: grid;
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    background: var(--paper);
+  }
+
+  #form-status {
+    color: #59645b;
+  }
+
+  .short-fields, .field {
+    display: grid;
+    min-inline-size: 0;
+    gap: .5rem;
+  }
+
+  .short-fields {
+    gap: 1.25rem;
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  .field input, textarea {
+    inline-size: 100%;
+    min-block-size: 44px;
+    padding: .6rem .75rem;
+    border: 1px solid var(--field-border);
+    border-radius: var(--field-radius);
+    box-shadow: inset 0 0 0 0 var(--field-border);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+  }
+
+  .field input:focus {
+    box-shadow: inset 0 0 0 1px var(--field-border);
+  }
+
+  .field input:focus-visible, textarea:focus-visible {
+    outline: none;
+  }
+
+  @media (forced-colors: active) {
+    .field input:focus-visible, textarea:focus-visible {
+      outline: 2px solid Highlight;
+    }
+  }
+
+  .floating-field {
+    position: relative;
+    color: #1c241f;
+  }
+
+  .floating-field label {
+    position: absolute;
+    inset-block-start: .7rem;
+    inset-inline-start: .75rem;
+    font-size: .94rem;
+  }
+
+  .floating-field input:focus + label,
+  .floating-field input:not(:placeholder-shown) + label {
+    transform: translateY(-100%);
+    padding-inline: .25rem;
+    background: var(--paper);
+    font-size: .78rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .field input {
+      transition: box-shadow .2s ease;
+    }
+
+    .message-body::after {
+      transition: transform .2s ease;
+    }
+
+    .floating-field label {
+      transition: transform .2s ease, font-size .2s ease;
+    }
+  }
+
+  .message-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .25rem .75rem;
+  }
+
+  #message-count {
+    margin-inline-start: auto;
+    color: #59645b;
+    font-size: .85rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .message-body {
+    position: relative;
+  }
+
+  .message-body::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    block-size: 2px;
+    background: var(--field-border);
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+  }
+
+  .message-body:has(textarea:focus, textarea:not(:placeholder-shown))::after {
+    transform: scaleX(1);
+  }
+
+  textarea {
+    display: block;
+    block-size: 120px;
+    resize: none;
+    overflow-y: auto;
+    padding: 5px 0;
+    border: 0;
+    border-block-end: 1px solid var(--field-border);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  textarea::-webkit-scrollbar {
+    width: 10px;
+    border-top: 1px solid rgb(110 110 110 / 65.1%);
+    background: rgb(212 212 212 / 65.1%);
+  }
+
+  textarea::-webkit-scrollbar-thumb {
+    background: var(--field-border);
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    textarea {
+      scrollbar-width: thin;
+      scrollbar-color: var(--field-border) rgb(212 212 212 / 65.1%);
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1.25rem;
+  }
+
+  .organization {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    min-block-size: 44px;
+    margin-inline-start: auto;
+    cursor: pointer;
+  }
+
+  @container (width < 28rem) {
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .organization {
+      margin-inline-start: 0;
+    }
+  }
+
+  .organization input {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    flex: none;
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+    margin: 0;
+    border: 1px solid var(--field-border);
+    border-radius: 4px;
+    background: var(--paper);
+    cursor: inherit;
+  }
+
+  .organization input:checked {
+    background: var(--field-border);
+  }
+
+  .organization input:checked::before {
+    content: "";
+    inline-size: .35rem;
+    block-size: .6rem;
+    border: solid var(--paper);
+    border-width: 0 2px 2px 0;
+    transform: translateY(-1px) rotate(45deg);
+  }
+
+  .organization input:not(:checked) + span {
+    color: #59645b;
+  }
+
+  @media (forced-colors: active) {
+    .organization input {
+      appearance: auto;
+    }
+
+    .organization input:checked::before {
+      content: none;
+    }
+  }
+
+  .submission-result:empty {
+    position: absolute;
+  }
+
+  button {
+    padding-inline: 1rem;
+    white-space: nowrap;
+    border-color: var(--field-border);
+    border-radius: var(--field-radius);
+    font-family: inherit;
+    line-height: inherit;
+  }
+
+  button:disabled {
+    opacity: .65;
+    transform: none;
+  }
+
+  @media (width > 860px) {
+    .has-preview {
+      grid-template-columns: minmax(15rem, 1fr) minmax(0, 2.4fr);
+      align-items: start;
+      gap: 0;
+    }
+
+    .has-preview .contact-channels {
+      z-index: 1;
+      grid-column: 1;
+      grid-row: 1;
+      margin-block-start: 2rem;
+      margin-inline-end: -1.5rem;
+    }
+
+    .contact-preview {
+      grid-column: 2;
+      grid-row: 1;
+      padding-inline-start: calc(1.5rem + clamp(1.25rem, 4vw, 2.5rem));
+    }
+
+    .short-fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
