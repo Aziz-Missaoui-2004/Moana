@@ -1,21 +1,29 @@
 @font-face {
-  font-family: "Libre Baskerville";
-  src: url("/fonts/LibreBaskerville-Regular.ttf") format("truetype");
+  font-family: "DejaVu Serif";
+  src: url("/fonts/DejaVuSerif-Regular.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Libre Baskerville";
-  src: url("/fonts/LibreBaskerville-Bold.ttf") format("truetype");
+  font-family: "DejaVu Serif";
+  src: url("/fonts/DejaVuSerif-Bold.ttf") format("truetype");
   font-style: normal;
   font-weight: 700;
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:calc(var(--navigation-height, 0px) + env(safe-area-inset-top, 0px))}
+html{--site-scale:.88;zoom:var(--site-scale);scroll-padding-top:calc(var(--navigation-height, 0px) + env(safe-area-inset-top, 0px))}
 body{margin:0;padding:0;position:relative;isolation:isolate}
 img{max-width:100%}
 
@@ -25,10 +33,10 @@ img{max-width:100%}
   --green:#1e3a2b; --green-2:#2a4d39; --olive:#7f9a3c;
   --ink:#1c241f; --muted:#59645b; --line:#d6c9ab;
   --bg:var(--beige); --surface:var(--paper); --on-green:#efe6d2;
-  --f-heading:"Libre Baskerville", Georgia, serif;
+  --f-heading:"DejaVu Serif", Georgia, serif;
   --f-display:"Marcellus", "Palatino Linotype", Georgia, serif;
   --f-arabic:"Amiri", "Geeza Pro", "Times New Roman", serif;
-  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#13241b; --surface:#1a2e23; --ink:#ece3cf; --muted:#b2b49e; --line:#2f4a3a;
@@ -41,7 +49,19 @@ img{max-width:100%}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.05rem;line-height:1.7}
-.in{max-width:66rem;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+button,input,select,textarea{font-family:inherit}
+.in {
+  --section-gutter: calc(25px / var(--site-scale));
+  margin-inline: auto;
+  padding-left: max(var(--section-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--section-gutter), env(safe-area-inset-right, 0px));
+}
+
+@media (width > 1000px) {
+  .in {
+    --section-gutter: calc(150px / var(--site-scale));
+  }
+}
 h1,h2,h3{font-family:var(--f-heading);font-weight:400;text-wrap:balance;line-height:1.15;margin:0}
 h1{font-weight:700}
 p{margin:0}
@@ -228,14 +248,14 @@ details p{margin-top:.6rem;color:var(--muted)}
 .handle{font-family:var(--f-display);font-size:clamp(1.6rem,5vw,2.6rem);text-decoration:none;color:var(--ink);overflow-wrap:anywhere}
 @media (hover:hover) and (pointer:fine){.link-olive-hover:hover{color:var(--olive)}}
 
-@media (max-width:860px){
+@media (max-width:760px){
   .hero-grid,.name-grid,.follow{grid-template-columns:1fr}
   .logo-big{width:min(58%,12rem)}
   .values,.events{grid-template-columns:1fr}
   section .join{padding-block-end:2rem}
   .membership-action{display:flex;inline-size:min(100%,17rem);margin-block-start:2rem;margin-inline:auto;justify-content:center;text-align:center}
 }
-@media (min-width:560px) and (max-width:860px){
+@media (min-width:560px) and (max-width:760px){
   .events{grid-template-columns:repeat(2,minmax(0,1fr))}
   .events .event:last-child{grid-column:1/-1}
 }

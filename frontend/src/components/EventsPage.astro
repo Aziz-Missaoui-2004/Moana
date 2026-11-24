@@ -1,0 +1,420 @@
+---
+import UpcomingEvent from "./UpcomingEvent.astro";
+import { demoEvent, demoUpcomingEvents } from "../data/demo-event";
+import { demoPastEvents } from "../data/demo-past-events";
+import SiteLayout from "../layouts/SiteLayout.astro";
+interface Props {
+  fullList?: boolean;
+}
+
+const { fullList = false } = Astro.props;
+const illustratedEvents = [
+  ...demoUpcomingEvents.filter((event) => event.image !== undefined).map((event) => ({ ...event, image: event.image?.src, credit: undefined })),
+  ...demoPastEvents,
+];
+const years = [...new Set(illustratedEvents.map(({ startsAt }) => startsAt.slice(0, 4)))].sort().reverse();
+const groups = fullList
+  ? years.map((year) => ({
+      year,
+      events: illustratedEvents
+        .filter(({ startsAt }) => startsAt.startsWith(year))
+        .sort((first, second) => first.past
+          ? (second.past ? second.startsAt.localeCompare(first.startsAt) : 1)
+          : (second.past ? -1 : first.startsAt.localeCompare(second.startsAt))),
+    }))
+  : [{ year: null, events: illustratedEvents.slice(0, 5) }];
+const eventDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UTC" });
+---
+
+<SiteLayout title={fullList ? "Tous les événements — Moana" : "Événements — Moana"} footerWaveFrom={false}>
+  {!fullList && (
+    <header class="hero" id="top">
+      <div class="in">
+        <h1>Événements</h1>
+      </div>
+    </header>
+  )}
+  <main id="contenu" tabindex="-1">
+    {!fullList && (
+      <>
+        <UpcomingEvent event={demoEvent} archivesUrl="#archives" />
+        <svg class="wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 56 H1200 V30 C1000 6 800 50 600 30 C400 10 200 46 0 22 Z" style="fill:var(--green);stroke:none"/>
+        </svg>
+      </>
+    )}
+    <section class:list={["events-band", { "events-full-list": fullList }]} id="archives" aria-labelledby="event-list-title">
+      <div class="in">
+        <div class:list={["head", { "event-list-heading": fullList }]}>
+          {fullList
+            ? <h1 id="event-list-title" tabindex="-1">Tous les événements</h1>
+            : <h2 id="event-list-title">Nos événements</h2>}
+          {fullList && (
+            <a class="btn btn-beige event-list-back" href="/evenements/#archives">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m15 6-6 6 6 6" />
+              </svg>
+              <span>Retour</span>
+            </a>
+          )}
+          {illustratedEvents.length === 0 && <p>Aucun événement à afficher pour le moment.</p>}
+        </div>
+        {illustratedEvents.length > 0 && (
+          groups.map(({ year, events }) => (
+          <div class="event-year-group">
+            {year && <h2 class="event-year" id={`events-${year}`}>{year}</h2>}
+            <ul class:list={["event-row", { "event-grid": fullList }]} tabindex={fullList ? undefined : 0} aria-labelledby={year ? `events-${year}` : "event-list-title"}>
+              {events.map(({ title, startsAt, image, past, summary, credit }, index) => (
+                <li class="event">
+                  {image && <img class="event-photo" src={image} alt="" loading="lazy" />}
+                  {past
+                  ? <span class="tag past-event-tag">Passé</span>
+                  : <time class="tag" datetime={startsAt}>{eventDate.format(new Date(startsAt))}</time>}
+                  <h3 class="event-title"><button type="button" class="event-reveal" aria-expanded="false" aria-controls={`event-summary-${year ?? "preview"}-${index}`}>
+                    <span>{title}</span>
+                    <svg class="event-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="m6 15 6-6 6 6" />
+                    </svg>
+                  </button></h3>
+                  <div class="event-summary" id={`event-summary-${year ?? "preview"}-${index}`}>
+                    <div>
+                      <p>{summary}</p>
+                      {credit && <p class="event-credit">Photo : <a href={credit.source}>{credit.author}</a> · <a href={credit.licenseUrl}>{credit.license}</a></p>}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          ))
+        )}
+        {!fullList && (
+          <div class="event-row-actions">
+            <a class="btn btn-beige" href="/evenements/tous/">
+              <span>Voir tous les événements</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </a>
+          </div>
+        )}
+        <div class="idea">
+          <p>Les prochaines dates sont annoncées sur Instagram. Tu as une idée d'événement ? Écris-nous, on est toujours partants.</p>
+          <a class="btn btn-beige" href="https://www.instagram.com/moana_uga/" target="_blank" rel="noopener">Voir les annonces</a>
+        </div>
+      </div>
+    </section>
+    <svg class="wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 H1200 V26 C1000 50 800 6 600 26 C400 46 200 8 0 32 Z" style="fill:var(--green);stroke:none"/>
+    </svg>
+    {fullList && (
+      <button class="events-back-to-top" type="button" aria-label="Revenir en haut de la page" inert>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m6 15 6-6 6 6" />
+        </svg>
+      </button>
+    )}
+  </main>
+</SiteLayout>
+
+
+<script>
+  const backToTop = document.querySelector<HTMLButtonElement>(".events-back-to-top");
+  const listTitle = document.querySelector<HTMLElement>("#event-list-title");
+
+  if (backToTop && listTitle) {
+    const updateBackToTop = () => {
+      const visible = window.scrollY >= window.innerHeight;
+      backToTop.toggleAttribute("data-visible", visible);
+      backToTop.inert = !visible;
+    };
+
+    backToTop.addEventListener("click", () => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      listTitle.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "instant" : "smooth" });
+    });
+    window.addEventListener("scroll", updateBackToTop, { passive: true });
+    window.addEventListener("resize", updateBackToTop);
+    window.addEventListener("pageshow", updateBackToTop);
+    updateBackToTop();
+  }
+
+
+  let activeEvent: { card: Element; close: () => void } | undefined;
+
+  document.querySelectorAll<HTMLButtonElement>(".event-reveal").forEach((button) => {
+    const card = button.closest(".event");
+    if (!card) return;
+
+    const show = (expanded: boolean) => {
+      if (expanded && activeEvent?.card !== card) activeEvent?.close();
+      card.toggleAttribute("data-revealed", expanded);
+      button.setAttribute("aria-expanded", String(expanded));
+      if (expanded) activeEvent = { card, close: () => show(false) };
+      else if (activeEvent?.card === card) activeEvent = undefined;
+    };
+
+    card.addEventListener("pointerenter", (event) => {
+      if (event.pointerType === "mouse") show(true);
+    });
+    card.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "mouse") show(false);
+    });
+    button.addEventListener("click", () => show(button.getAttribute("aria-expanded") !== "true"));
+  });
+
+  document.addEventListener("click", (event) => {
+    if (event.target instanceof Node && activeEvent && !activeEvent.card.contains(event.target)) {
+      activeEvent.close();
+    }
+  });
+</script>
+
+<style>
+  .events-back-to-top {
+    position: fixed;
+    inset-inline-end: 15%;
+    inset-block-end: 15%;
+    z-index: 2;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: calc(2px / var(--site-scale, 1)) solid var(--green);
+    border-radius: 50%;
+    background: var(--beige);
+    color: var(--green);
+    cursor: pointer;
+  }
+
+  .events-back-to-top {
+    transform: translateY(.5rem);
+    visibility: hidden;
+  }
+
+  .events-back-to-top[data-visible] {
+    transform: none;
+    visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .events-back-to-top {
+      transition: transform .22s ease, visibility 0s linear .22s;
+    }
+
+    .events-back-to-top[data-visible] {
+      transition-delay: 0s;
+    }
+  }
+
+
+  .events-full-list .in {
+    padding-block-start: calc(var(--navigation-height, 0px) + 2rem);
+  }
+
+  .event-year-group + .event-year-group {
+    margin-block-start: 2.5rem;
+  }
+
+  .event-year {
+    font-family: var(--f-body);
+    font-size: 1.17em;
+    margin-block-end: 1rem;
+  }
+
+  .event-row.event-grid {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    overflow: visible;
+    padding-block-end: 0;
+  }
+
+  .events-full-list .event-list-heading {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    max-width: none;
+  }
+
+  .event-list-heading p {
+    grid-column: 1 / -1;
+  }
+
+  .event-list-back {
+    white-space: nowrap;
+  }
+
+  .event-row-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-block-start: 1rem;
+    padding-inline: .75rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .event-row-actions a:hover svg {
+      transform: translateX(.25rem);
+    }
+
+    .event-list-back:hover svg {
+      transform: translateX(-.25rem);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .event-row-actions a svg,
+      .event-list-back svg {
+        transition: transform .2s ease;
+      }
+    }
+  }
+
+  .event-row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(82%, 21rem);
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: inline proximity;
+    margin: 0;
+    padding: 0 0 calc(30px / var(--site-scale, 1));
+    list-style: none;
+  }
+
+  .event-row .event {
+    --event-band: color-mix(in srgb, var(--green-2) 88%, transparent);
+    position: relative;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto auto;
+    gap: 0;
+    isolation: isolate;
+    block-size: 20rem;
+    overflow: hidden;
+    padding: 0;
+    background: var(--green);
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    overflow-wrap: anywhere;
+  }
+
+  .event-row .event[data-revealed]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--on-green);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .event-photo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .event-row .event .tag {
+    position: absolute;
+    inset-block-start: 1rem;
+    inset-inline-start: 1.25rem;
+    background: var(--green-2);
+    color: var(--on-green);
+  }
+
+  .event-row .event .past-event-tag {
+    background: #555;
+    color: white;
+  }
+
+  .event-row .event .event-title {
+    margin: 0;
+    font: 400 1.4rem / 1.15 var(--f-heading);
+    text-wrap: balance;
+    grid-row: 2;
+    background: var(--event-band);
+  }
+
+  .event-reveal {
+    display: block;
+    width: 100%;
+    padding: .85rem 1.25rem 1.15rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .event-chevron {
+    display: none;
+    flex: none;
+  }
+
+  @media (width <= 760px) {
+    .event-reveal {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+    }
+
+    .event-chevron {
+      display: block;
+    }
+
+    .event-reveal[aria-expanded="true"] .event-chevron {
+      transform: rotate(180deg);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .event-chevron {
+        transition: transform .3s ease;
+      }
+    }
+  }
+
+  .event-reveal:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .event-summary {
+    grid-row: 3;
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    background: var(--event-band);
+    visibility: hidden;
+  }
+
+  .event-summary > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .event-summary p {
+    padding: 0 1.25rem 1rem;
+  }
+
+  .event-summary .event-credit {
+    font-size: .75rem;
+  }
+
+  .event[data-revealed] .event-summary {
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .event-summary {
+      transition: grid-template-rows .3s ease, visibility 0s linear .3s;
+    }
+
+    .event[data-revealed] .event-summary {
+      transition-delay: 0s;
+    }
+  }
+</style>

@@ -21,5 +21,6 @@
 
 **Budget.** Le site est plafonné à **25 € TTC par an**.
 
-- Nom de domaine dans cette enveloppe, renouvellement compris.
+- **Domaine et messagerie à discuter.** Un `.fr` chez OVHcloud coûte 9,35 € TTC/an au renouvellement. Vérifier la disponibilité du nom et si une boîte permettant de recevoir et de répondre depuis `contact@moana-uga.fr` est incluse. Confirmer avec le bureau qui gérera cette boîte via le webmail. [Offre .fr](https://www.ovhcloud.com/fr/domains/tld/fr/) · [Webmail OVHcloud](https://www.ovhcloud.com/fr/mail/)
+- **Total estimé au renouvellement.** 9,35 € TTC/an si la boîte est incluse, ou 13,67 € TTC/an avec Zimbra Starter à 0,36 € TTC/mois. Estimation avec les offres gratuites pour les autres services, dans leurs quotas. [Tarif Zimbra](https://www.ovhcloud.com/fr/emails/webmail-zimbra/)
 - Cloudflare R2 Standard pour les photos et affiches, avec 10 Go-mois de stockage gratuit. [Tarifs R2](https://developers.cloudflare.com/r2/pricing/)

@@ -52,15 +52,12 @@ La [note sur Assas Monde Arabe](../design/references/assas-navigation.md) conser
 
 ## Page « Événements »
 
-La première version de la route reprend le bloc « Prochain événement » et les trois exemples d’événements passés déplacés de l’accueil. La liste à venir et les rangées à défilement font partie du travail de conception de cette page.
-
-Le lien « Événements » du header mène à la page dédiée `/evenements/`. La page présente trois sections, dans cet ordre.
+Le lien « Événements » du header mène à `/evenements/`. La page présente deux sections.
 
 1. **Prochain événement.** En tête de page, afficher le titre, la date, le lieu, les informations utiles et le bouton « Participer ». Quand aucune date n’est annoncée, afficher un message et garder les archives accessibles.
-2. **Événements à venir.** Une rangée de cartes à défilement horizontal, classées de la date la plus proche à la plus éloignée. La rangée présente les autres dates à venir, puisque le prochain événement est déjà mis en avant.
-3. **Événements passés.** Une deuxième rangée à défilement horizontal, des plus récents aux plus anciens.
+2. **Nos événements.** Une rangée horizontale réunit les événements à venir par date croissante, y compris l’événement mis en avant, puis les événements passés. Seuls les événements illustrés apparaissent. Les cartes passées portent la pastille « Passé ». La rangée affiche les cinq premiers événements. « Voir tous les événements » ouvre la grille complète sur `/evenements/tous/`, avec un groupe par année de la plus récente à la plus ancienne, avec un lien de retour vers la rangée.
 
-Sur téléphone, chaque rangée peut être parcourue au doigt. Sur ordinateur, prévoir des commandes visibles quand la rangée déborde. Les cartes et les commandes restent accessibles au clavier, et le défilement reste limité à la rangée. L’accueil renvoie vers cette page avec son lien « Voir nos événements ». La destination exacte du bouton « Participer » sera définie avec MOANA.
+Le défilement horizontal reste limité à la rangée, accessible au toucher et au clavier. L’accueil renvoie vers cette page avec son lien « Voir nos événements ». La destination exacte du bouton « Participer » sera définie avec MOANA.
 
 ## Page « Contact »
 

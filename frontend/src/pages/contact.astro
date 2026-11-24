@@ -180,7 +180,7 @@ const questions = [
       if (reducedMotion.matches) return;
       event.preventDefault();
 
-      const height = item.open ? answer.getBoundingClientRect().height : 0;
+      const height = item.open ? parseFloat(getComputedStyle(answer).height) : 0;
       const opacity = item.open ? getComputedStyle(answer).opacity : "0";
       const answerColor = item.open ? getComputedStyle(answer).color : "var(--faq-answer-resting)";
       const copyColor = item.open ? getComputedStyle(answerCopy).color : "var(--green-2)";
@@ -226,14 +226,6 @@ const questions = [
     color-scheme: light;
     background: var(--beige-strong);
     color: #1c241f;
-  }
-
-  .contact-header h1 {
-    text-align: center;
-  }
-
-  .contact-header .in {
-    padding-block-end: 1.5rem;
   }
 
   .contact {
@@ -453,7 +445,11 @@ const questions = [
     font-size: .9rem;
   }
 
-  @media (width <= 860px) {
+  @media (width <= 760px) {
+    .contact-header h1 {
+      text-align: center;
+    }
+
     .has-preview {
       gap: 0;
     }
@@ -706,7 +702,7 @@ const questions = [
     transform: none;
   }
 
-  @media (width > 860px) {
+  @media (width > 760px) {
     .has-preview {
       grid-template-columns: minmax(15rem, 1fr) minmax(0, 2.4fr);
       align-items: start;

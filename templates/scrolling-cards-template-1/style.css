@@ -1,0 +1,104 @@
+:root {
+  --red: #ef233c;
+  --darkred: #c00424;
+  --platinum: #e5e5e5;
+  --black: #2b2d42;
+  --white: #fff;
+  --thumb: #edf2f4;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font: 16px / 24px "Rubik", sans-serif;
+  color: var(--black);
+  background: var(--platinum);
+  margin: 50px 0;
+}
+
+.container {
+  max-width: 1400px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 1.15;
+  margin-bottom: 1em;
+}
+
+.cards {
+  display: flex;
+  padding: 25px 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: var(--darkred) var(--thumb);
+}
+
+.cards:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 3px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 100%;
+  padding: 20px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+  scroll-snap-align: start;
+  transition: color .2s, background-color .2s;
+}
+
+.card:not(:last-child) { margin-right: 10px; }
+.card-title { font-size: 20px; }
+.card-content { margin: 20px 0; max-width: 85%; }
+.card-link-wrapper { margin-top: auto; }
+.card-link {
+  display: inline-block;
+  color: var(--white);
+  background: var(--darkred);
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: color .2s, background-color .2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover { color: var(--white); background: var(--darkred); }
+  .card:hover .card-link { color: var(--darkred); background: var(--white); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .card-link { transition: none; }
+}
+
+.cards::-webkit-scrollbar { height: 12px; }
+.cards::-webkit-scrollbar-thumb, .cards::-webkit-scrollbar-track { border-radius: 92px; }
+.cards::-webkit-scrollbar-thumb { background: var(--darkred); }
+.cards::-webkit-scrollbar-track { background: var(--thumb); }
+
+@media (min-width: 500px) {
+  .card { flex-basis: calc(50% - 10px); }
+  .card:not(:last-child) { margin-right: 20px; }
+}
+
+@media (min-width: 700px) {
+  .card { flex-basis: calc(100% / 3 - 20px); }
+  .card:not(:last-child) { margin-right: 30px; }
+}
+
+@media (min-width: 1100px) {
+  .card { flex-basis: calc(25% - 30px); }
+  .card:not(:last-child) { margin-right: 40px; }
+}
+
+.source { margin-top: 1.25rem; }
+.source a { color: inherit; text-underline-offset: .2em; }

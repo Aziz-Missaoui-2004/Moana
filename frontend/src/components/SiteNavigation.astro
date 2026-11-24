@@ -74,7 +74,7 @@ const links = [
     const closeButton = menu?.querySelector<HTMLButtonElement>(".menu-close");
     const panel = menu?.querySelector<HTMLElement>(".menu-panel");
     if (menu && trigger && closeButton && panel && typeof menu.showModal === "function") {
-      const compact = window.matchMedia("(width <= 860px)");
+      const compact = window.matchMedia("(width <= 760px)");
       navigation.setAttribute("data-menu-ready", "");
       navigation.addEventListener("pointerdown", () => navigation.setAttribute("data-menu-pointer", ""));
       navigation.addEventListener("keydown", () => navigation.removeAttribute("data-menu-pointer"));
@@ -276,7 +276,7 @@ const links = [
     overflow: hidden;
   }
 
-  @media (width <= 860px) {
+  @media (width <= 760px) {
     :global(html) { scrollbar-gutter: stable; }
 
     [data-menu-ready] > .in {

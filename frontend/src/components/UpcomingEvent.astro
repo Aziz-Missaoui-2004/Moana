@@ -3,6 +3,7 @@ interface Props {
   archivesUrl?: string;
   event?: {
     title: string;
+    image?: string;
     startsAt: string;
     schedule: string;
     venue: string;
@@ -15,30 +16,38 @@ interface Props {
 const { event, archivesUrl = "/evenements/#archives" } = Astro.props;
 ---
 
-<section class="upcoming" id="prochain-evenement" aria-labelledby="upcoming-title">
+<section class:list={["upcoming", { "upcoming-featured": event }]} id="prochain-evenement" aria-labelledby="upcoming-title">
   <div class="in">
-    <div class="feature">
-      <div class="introduction">
-        <h2 id="upcoming-title">Prochain événement</h2>
-        {event ? (
-          <>
-            {event.demo && <p class="demo">Événement de démonstration</p>}
-            <h3>{event.title}</h3>
-            <p>{event.summary}</p>
-          </>
-        ) : <p>Aucune nouvelle date n’est annoncée pour le moment.</p>}
-      </div>
-      {event ? (
-        <div class="action">
-          <p><time datetime={event.startsAt}>{event.schedule}</time><br>{event.venue}</p>
-          <a class="btn btn-beige" href={event.participationUrl}>Participer</a>
-          {event.demo && <p class="demo" id="participation-demo" tabindex="-1">Ce bouton illustre le parcours. Les inscriptions ne sont pas ouvertes pour cet exemple.</p>}
-        </div>
-      ) : (
-        <div class="action">
-          <a class="btn btn-beige" href={archivesUrl}>Découvrir les événements passés</a>
+    <div class:list={["feature", { "with-photo": event?.image }]}>
+      {event?.image && (
+        <div class="event-visual">
+          <img src={event.image} alt="" />
         </div>
       )}
+      <div class="event-information">
+        <h2 class="label" id="upcoming-title">Prochain événement</h2>
+        {event ? (
+          <>
+            <h3>{event.title}</h3>
+            <div class="event-schedule">
+              <time datetime={event.startsAt}>{event.schedule}</time>
+              <p>{event.venue}</p>
+            </div>
+            <p class="event-summary">{event.summary}</p>
+            <div class="action">
+              <a class="btn btn-beige" href={event.participationUrl}>Participer</a>
+              {event.demo && <p class="demo" id="participation-demo" tabindex="-1">Événement fictif. Les inscriptions sont fermées.</p>}
+            </div>
+          </>
+        ) : (
+          <>
+            <p>Aucune nouvelle date n’est annoncée pour le moment.</p>
+            <div class="action">
+              <a class="btn btn-beige" href={archivesUrl}>Voir les annonces</a>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   </div>
 </section>
@@ -52,29 +61,81 @@ const { event, archivesUrl = "/evenements/#archives" } = Astro.props;
     padding-block: 2rem;
   }
 
+  .upcoming-featured .in {
+    padding: 0;
+  }
+
+  .upcoming-featured .feature {
+    min-block-size: calc(100svh / var(--site-scale, 1));
+  }
+
   .feature {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    align-items: center;
-    gap: 2rem;
-    padding: clamp(1.25rem, 4vw, 2.5rem);
-    border-radius: 14px;
-    background: var(--green-2);
-    color: var(--on-green);
     overflow-wrap: anywhere;
   }
 
-  .introduction, .action {
-    display: grid;
-    gap: .75rem;
+  .feature.with-photo {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   }
 
-  h2 {
-    font-size: clamp(1.8rem, 4.2vw, 2.7rem);
+  .event-visual {
+    position: relative;
+    min-height: 22rem;
+    background: var(--beige);
+  }
+
+  .event-visual img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .event-information {
+    --event-panel-inset: clamp(1.75rem, 5vw, 5rem);
+    --event-panel-muted: color-mix(in srgb, var(--on-green) 78%, var(--green));
+    display: grid;
+    background: var(--green);
+    color: var(--on-green);
+    align-content: center;
+    gap: clamp(.85rem, 1.6vw, 1.35rem);
+    padding: clamp(2rem, 5vw, 4rem) var(--event-panel-inset);
+  }
+
+  .event-information .label {
+    font-family: var(--f-body);
+    color: color-mix(in srgb, var(--on-green) 75%, var(--olive));
+    font-weight: 600;
   }
 
   h3 {
-    font-size: 1.4rem;
+    font-size: clamp(2rem, 4.2vw, 4.2rem);
+    max-inline-size: 18ch;
+  }
+
+  .event-schedule {
+    display: grid;
+    gap: .25rem;
+    margin-block-start: .25rem;
+    padding-block-start: .9rem;
+    max-inline-size: 38ch;
+    border-block-start: 1px solid color-mix(in srgb, var(--on-green) 32%, transparent);
+  }
+
+  .event-schedule p, .demo {
+    color: var(--event-panel-muted);
+  }
+
+  .event-summary {
+    max-inline-size: 40ch;
+    font-size: 1.12rem;
+    line-height: 1.6;
+  }
+
+  .event-schedule time {
+    font-weight: 600;
+    text-transform: capitalize;
   }
 
   .demo {
@@ -82,6 +143,9 @@ const { event, archivesUrl = "/evenements/#archives" } = Astro.props;
   }
 
   .action {
+    display: grid;
+    gap: .75rem;
+    margin-block-start: .35rem;
     justify-items: start;
   }
 
@@ -94,13 +158,32 @@ const { event, archivesUrl = "/evenements/#archives" } = Astro.props;
     background: color-mix(in srgb, var(--beige) 82%, var(--olive));
   }
 
-  @media (max-width: 560px) {
-    .feature {
+  @media (width > 760px) {
+    .feature.with-photo {
+      --feature-slant: clamp(1.5rem, 4vw, 4rem);
+    }
+
+    .with-photo .event-visual {
+      margin-inline-end: calc(-1 * var(--feature-slant));
+    }
+
+    .with-photo .event-information {
+      clip-path: polygon(var(--feature-slant) 0, 100% 0, 100% 100%, 0 100%);
+      padding-inline-start: calc(var(--event-panel-inset) + var(--feature-slant));
+    }
+  }
+
+  @media (width <= 760px) {
+    .feature.with-photo {
       grid-template-columns: minmax(0, 1fr);
-      gap: 1.25rem;
+    }
+
+    .event-visual {
+      min-height: max(16rem, calc(45svh / var(--site-scale, 1)));
     }
 
     .action .btn {
+      box-sizing: border-box;
       width: 100%;
     }
   }

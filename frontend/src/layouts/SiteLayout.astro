@@ -18,7 +18,7 @@ const { title, footerWaveFrom } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Amiri:wght@400;700&family=Figtree:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Amiri:wght@400;700&display=swap">
   </head>
   <body>
     <a class="btn skip-link" href="#contenu">Aller au contenu</a>
@@ -50,8 +50,9 @@ const { title, footerWaveFrom } = Astro.props;
       if (event.pointerType !== "mouse" && event.pointerType !== "pen") return;
 
       const bounds = button.getBoundingClientRect();
-      const entryX = event.clientX - bounds.left - button.clientLeft;
-      const entryY = event.clientY - bounds.top - button.clientTop;
+      const scale = button.currentCSSZoom ?? bounds.width / button.offsetWidth;
+      const entryX = (event.clientX - bounds.left) / scale - button.clientLeft;
+      const entryY = (event.clientY - bounds.top) / scale - button.clientTop;
       const edges = [
         { distance: entryX, dx: -1, dy: 0 },
         { distance: button.clientWidth - entryX, dx: 1, dy: 0 },
