@@ -61,6 +61,6 @@ Le défilement horizontal reste limité à la rangée, accessible au toucher et 
 
 ## Page « Contact »
 
-Le panneau « Nous trouver » présente l’adresse postale et les liens Instagram et HelloAsso. L’adresse e-mail publique et le compte TikTok restent à confirmer avec le bureau. Le formulaire général est visible en développement pour la revue. Son envoi sera défini avec le bureau, ainsi que les champs et la destination des demandes de partenariat.
+Le panneau « Nous trouver » présente l’adresse postale et les liens Instagram et HelloAsso. L’adresse e-mail publique et le compte TikTok restent à confirmer avec le bureau. Le formulaire de démonstration est visible en développement et sur GitHub Pages pour la revue du bureau. Il ne transmet aucun message. Son envoi sera défini avec le bureau, ainsi que les champs et la destination des demandes de partenariat.
 
 Les questions fréquentes suivent le formulaire sur Contact. L’ancre directe est `/contact/#faq`.

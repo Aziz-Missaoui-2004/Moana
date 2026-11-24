@@ -1,3 +1,4 @@
+import { showReviewContent } from "./review-mode";
 import oud from "../assets/event-demos/oud.png";
 import projection from "../assets/event-demos/projection.png";
 import andaloussiyat from "../assets/event-demos/andaloussiyat.png";
@@ -18,7 +19,7 @@ const demoCards = [
   { title: "Pique-nique culturel" },
 ];
 
-export const demoUpcomingEvents = import.meta.env.DEV
+export const demoUpcomingEvents = showReviewContent
   ? demoCards.map((card, index) => ({
       ...card,
       startsAt: card.startsAt ?? `2027-02-${String(index + 1).padStart(2, "0")}`,

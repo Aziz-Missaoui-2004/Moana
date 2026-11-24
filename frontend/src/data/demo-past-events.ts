@@ -1,6 +1,7 @@
+import { showReviewContent } from "./review-mode";
 import mintTea from "../assets/event-demos/mint-tea.jpg";
 
-export const demoPastEvents = import.meta.env.DEV ? [
+export const demoPastEvents = showReviewContent ? [
   {
     title: "Art du thé à la menthe",
     summary: "Préparer un thé à la menthe et le partager.",
