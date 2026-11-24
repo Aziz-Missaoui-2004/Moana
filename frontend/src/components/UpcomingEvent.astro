@@ -1,6 +1,5 @@
 ---
 interface Props {
-  archivesUrl?: string;
   event?: {
     title: string;
     image?: string;
@@ -13,7 +12,7 @@ interface Props {
   };
 }
 
-const { event, archivesUrl = "/evenements/#archives" } = Astro.props;
+const { event } = Astro.props;
 ---
 
 <section class:list={["upcoming", { "upcoming-featured": event }]} id="prochain-evenement" aria-labelledby="upcoming-title">
@@ -43,7 +42,7 @@ const { event, archivesUrl = "/evenements/#archives" } = Astro.props;
           <>
             <p>Aucune nouvelle date n’est annoncée pour le moment.</p>
             <div class="action">
-              <a class="btn btn-beige" href={archivesUrl}>Voir les annonces</a>
+              <a class="btn btn-beige" href="https://www.instagram.com/moana_uga/">Voir les annonces</a>
             </div>
           </>
         )}

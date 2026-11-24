@@ -37,7 +37,7 @@ const eventDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone
   <main id="contenu" tabindex="-1">
     {!fullList && (
       <>
-        <UpcomingEvent event={demoEvent} archivesUrl="#archives" />
+        <UpcomingEvent event={demoEvent} />
         <svg class="wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
           <path d="M0 56 H1200 V30 C1000 6 800 50 600 30 C400 10 200 46 0 22 Z" style="fill:var(--green);stroke:none"/>
         </svg>
@@ -98,10 +98,6 @@ const eventDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone
             </a>
           </div>
         )}
-        <div class="idea">
-          <p>Les prochaines dates sont annoncées sur Instagram. Tu as une idée d'événement ? Écris-nous, on est toujours partants.</p>
-          <a class="btn btn-beige" href="https://www.instagram.com/moana_uga/" target="_blank" rel="noopener">Voir les annonces</a>
-        </div>
       </div>
     </section>
     <svg class="wave" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
