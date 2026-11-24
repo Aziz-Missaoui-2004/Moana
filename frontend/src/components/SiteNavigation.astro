@@ -1,12 +1,13 @@
 ---
-const pathname = Astro.url.pathname.replace(/\/$/, "");
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const pathname = Astro.url.pathname.slice(base.length).replace(/\/$/, "");
 const isContact = pathname === "/contact";
 const links = [
-  { label: "L’asso", href: "/asso" },
-  { label: "Nos événements", href: "/evenements/" },
+  { label: "L’asso", href: `${base}/asso` },
+  { label: "Nos événements", href: `${base}/evenements/` },
   { label: "Galerie" },
   { label: "Nos partenaires" },
-  { label: "Contact", href: "/contact/" },
+  { label: "Contact", href: `${base}/contact/` },
   { label: "Adhérer" },
 ];
 ---
@@ -14,13 +15,13 @@ const links = [
 <div class:list={["navigation-backdrop", { "contact-navigation": isContact }]} aria-hidden="true"></div>
 <div class:list={["site-navigation", { "contact-navigation": isContact }]} data-site-navigation>
   <nav class="in" aria-label="Navigation principale">
-    <a class="brand" href="/" aria-label="Moana · Accueil">
-      <img src="/moana-logo.webp" alt="">
+    <a class="brand" href={`${base}/`} aria-label="Moana · Accueil">
+      <img src={`${base}/moana-logo.webp`} alt="">
       <bdi class="ar" lang="ar" dir="rtl" translate="no">مُعاوَنة</bdi>
     </a>
     <div class="navlinks desktop-links">
       {links.map(({ label, href }) => href
-        ? <a class="link-underline" href={href} aria-current={pathname === href.replace(/\/$/, "") ? "page" : undefined}>{label}</a>
+        ? <a class="link-underline" href={href} aria-current={pathname === href.slice(base.length).replace(/\/$/, "") ? "page" : undefined}>{label}</a>
         : <span role="link" aria-disabled="true">{label}</span>
       )}
     </div>
@@ -33,7 +34,7 @@ const links = [
     <div class="menu-panel">
       <nav class="navlinks drawer-links" aria-label="Navigation mobile">
         {links.map(({ label, href }) => href
-        ? <a class="link-underline" href={href} aria-current={pathname === href.replace(/\/$/, "") ? "page" : undefined}>{label}</a>
+        ? <a class="link-underline" href={href} aria-current={pathname === href.slice(base.length).replace(/\/$/, "") ? "page" : undefined}>{label}</a>
         : <span role="link" aria-disabled="true">{label}</span>
       )}
       </nav>

@@ -24,6 +24,7 @@ const groups = fullList
     }))
   : [{ year: null, events: illustratedEvents.slice(0, 5) }];
 const eventDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UTC" });
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <SiteLayout title={fullList ? "Tous les événements — Moana" : "Événements — Moana"} footerWaveFrom={false}>
@@ -50,7 +51,7 @@ const eventDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone
             ? <h1 id="event-list-title" tabindex="-1">Tous les événements</h1>
             : <h2 id="event-list-title">Nos événements</h2>}
           {fullList && (
-            <a class="btn btn-beige event-list-back" href="/evenements/#archives">
+            <a class="btn btn-beige event-list-back" href={`${base}/evenements/#archives`}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="m15 6-6 6 6 6" />
               </svg>
@@ -90,7 +91,7 @@ const eventDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone
         )}
         {!fullList && (
           <div class="event-row-actions">
-            <a class="btn btn-beige" href="/evenements/tous/">
+            <a class="btn btn-beige" href={`${base}/evenements/tous/`}>
               <span>Voir tous les événements</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="m9 6 6 6-6 6" />

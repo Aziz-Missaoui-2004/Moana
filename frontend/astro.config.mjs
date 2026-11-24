@@ -5,6 +5,7 @@ import { defineConfig } from "astro/config";
 const onVmwareShare = fileURLToPath(import.meta.url).startsWith("/mnt/hgfs/");
 
 export default defineConfig({
+  base: process.env.MOANA_SITE_BASE || "/",
   devToolbar: { enabled: false },
   vite: {
     server: {

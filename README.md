@@ -39,3 +39,8 @@ Les skills Visual Review et Color Expert sont dans le projet. Pour retrouver aus
 | Modèles pour le bureau | [Fiche événement](templates/event.md) et [fiche tâche](templates/task.md) |
 
 Le code actif se trouve dans [frontend/](frontend/). L’[export HTML d’origine](design/references/home-supplied.html) est conservé comme brouillon de référence. Les modifications se font dans la copie de travail Astro. Les essais de pages sont aussi conservés dans les références.
+
+
+## Publication du site
+
+Chaque push sur `main` lance le build Astro et publie son résultat via GitHub Actions. Le bureau peut suivre l’avancement dans l’historique GitHub et consulter le site à jour après la réussite du workflow. Les données de démonstration sont réservées au développement. [Historique de main](https://github.com/Aziz-Missaoui-2004/Moana/commits/main/) · [Publications](https://github.com/Aziz-Missaoui-2004/Moana/actions/workflows/pages.yml) · [Site](https://aziz-missaoui-2004.github.io/Moana/)

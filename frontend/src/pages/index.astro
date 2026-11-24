@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <SiteLayout title="Moana — La culture arabe en partage">
@@ -9,9 +10,9 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         <div class="hero-text">
           <h1>Moana, <span class="ar" lang="ar" dir="rtl" translate="no">مُعاوَنة</span><br>la culture arabe en partage</h1>
           <p class="lede">À l’Université Grenoble Alpes, notre association étudiante fait découvrir les arts, le cinéma et les traditions arabes lors de rencontres ouvertes à toutes et tous.</p>
-          <a class="hero-link" href="/asso">Découvrir l’asso</a>
+          <a class="hero-link" href={`${base}/asso`}>Découvrir l’asso</a>
         </div>
-        <img class="logo-big" src="/moana-logo.webp" alt="Logo de Moana : le mot arabe مُعاوَنة entouré d'un rameau d'olivier et de vagues">
+        <img class="logo-big" src={`${base}/moana-logo.webp`} alt="Logo de Moana : le mot arabe مُعاوَنة entouré d'un rameau d'olivier et de vagues">
       </div>
     </div>
   </header>
